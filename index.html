@@ -389,7 +389,9 @@ function rL(){
       `<tr class="cf-row"><td></td>`+
       `<td><select class="cf-sel" data-cf-key="src" onchange="colF['src']=this.value;rL()"><option value="">Todos</option><option value="d"${colF.src==='d'?' selected':''}>Conta Di&#225;ria</option><option value="i"${colF.src==='i'?' selected':''}>Investimento</option><option value="c"${colF.src==='c'?' selected':''}>Cart&#227;o</option></select></td>`+
       `${cfSel('date',uDates)}${cfTxt('desc','Buscar...')}${cfSel('tipo',['Entrada','Saída','Agendado'])}${cfSel('cat',uCats)}<td></td></tr>`;
-    rows.sort((a,z)=>_dsd(a.date,z.date));
+    const _msL=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+    const _mkey=r=>{const ms=r._src==='c'?r.mes:gm(r.date);if(!ms)return'0000/00';const[mn,yr]=ms.split('/');return yr+'/'+(String(_msL.indexOf(mn)+1).padStart(2,'0'));};
+    rows.sort((a,z)=>{const ak=_mkey(a),zk=_mkey(z);if(ak!==zk)return zk.localeCompare(ak);return _dsd(a.date,z.date);});
     rows.forEach(r=>{
       const srcBadge=r._src==='d'?'<span class="sb-d" style="font-size:11px;padding:2px 6px">Diária <small>10503-3</small></span>':r._src==='i'?'<span class="sb-i" style="font-size:11px;padding:2px 6px">Invest. <small>29183-3</small></span>':'<span class="sb-c" style="font-size:11px;padding:2px 6px">Cartão <small>*9351</small></span>';
       const tipoBadge=r._tl==='Agendado'?`<span class="badge fut">Agendado</span>`:r._tl==='Entrada'?`<span class="badge in">Entrada</span>`:`<span class="badge out">Sa&#237;da</span>`;
