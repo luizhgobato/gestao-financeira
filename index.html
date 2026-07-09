@@ -251,7 +251,7 @@ function rC(){if(document.getElementById('p0').classList.contains('active'))rL()
 function rL(){
   const _af=document.activeElement,_afk=_af&&_af.getAttribute&&_af.getAttribute('data-cf-key');
   const q=(document.getElementById('sL')||{value:''}).value.toLowerCase();
-  const _rst="lnSrc='a';colF={date:'',desc:'',tipo:'',cat:'',src:'',mes:''};rL()";
+  const _rst="lnSrc='a';mAll='all';colF={date:'',desc:'',tipo:'',cat:'',src:'',mes:''};rL()";
   document.getElementById('lnSrcBar').innerHTML=
     `<div class="mf">`+
     `<button class="mb${lnSrc==='a'?' active':''}" onclick="${_rst}">Todos</button>`+
@@ -369,7 +369,7 @@ function rL(){
     const uDates=[...new Set(allRaw.map(r=>r.date))].sort(_dsd);
     const uCats=[...new Set(allRaw.map(r=>r._cat))].sort();
     const rows=allRaw.filter(r=>{
-      if(mAll!=='all'&&gm(r.date)!==mAll)return false;
+      if(mAll!=='all'&&(r._src==='c'?r.mes!==mAll:gm(r.date)!==mAll))return false;
       if(q&&!r.desc.toLowerCase().includes(q)&&!r._cat.toLowerCase().includes(q))return false;
       if(colF.date&&r.date!==colF.date)return false;
       if(colF.desc&&!r.desc.toLowerCase().includes(colF.desc.toLowerCase()))return false;
